@@ -1,53 +1,117 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #333; /* Donkere achtergrond zoals in je voorbeeld */
+    color: white; /* Witte tekst voor contrast */
+    margin: 0;
+    padding: 20px;
 }
 
 .container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 36px;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-p {
-    font-size: 1.2rem;
+.timer, .winner {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.credits {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.credits div {
+    flex: 1;
+    text-align: center;
+}
+
+.dices {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.buttons button {
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
+.dices div {
+    flex: 1;
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0066cc;
     color: white;
-    border-radius: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.buttons button:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: #005bb5;
 }
 
-#result {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
 }
+
+.restart {
+    display: flex;
+    justify-content: center;
+}
+
+.restart button {
+    padding: 10px 30px;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.restart button:hover {
+    background-color: #d62839;
+}
+
+/* Dobbelstenen style */
+.dice {
+    font-size: 64pt;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Layout fix voor responsiveness */
+@media (max-width: 768px) {
+    .credits, .dices {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+
+
