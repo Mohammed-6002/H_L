@@ -9,6 +9,7 @@ let currentDiceSum = 0;
 let computerDiceSum = 0;
 let timer;
 let timeLeft = 120;  // Timer van 2 minuten
+let playerChoice = null; // Houdt bij of speler 'hoger' of 'lager' kiest
 
 // Knoppen en display-elementen
 const goButton = document.getElementById("go-button");
@@ -35,43 +36,38 @@ goButton.addEventListener('click', function() {
     resetGame();  // Reset spel variabelen
     startTimer(); // Start de timer
 
-    // Activeer de "Hoger" en "Lager" knoppen
+    // Activeer de "Hoger" en "Lager" knoppen, maar de "Gooi dobbelsteen" blijft uit
     lowerButton.disabled = false;
     higherButton.disabled = false;
-
-    // Gooi dobbelstenen zodra de speler een keuze maakt
-    diceButton.disabled = false;
-    diceButton.addEventListener('click', rollDice);
+    diceButton.disabled = true; // "Gooi dobbelsteen" is uitgeschakeld
 });
 
 // Lager-knop event
 lowerButton.addEventListener('click', function() {
     console.log('Lower button clicked');
-    checkGuess('lower');
+    playerChoice = 'lower'; // Speler heeft 'lager' gekozen
+    enableDiceButton(); // Activeer de dobbelsteen-knop
 });
 
 // Hoger-knop event
 higherButton.addEventListener('click', function() {
     console.log('Higher button clicked');
-    checkGuess('higher');
+    playerChoice = 'higher'; // Speler heeft 'hoger' gekozen
+    enableDiceButton(); // Activeer de dobbelsteen-knop
 });
 
-// Functie om de timer te starten
-function startTimer() {
-    timerDisplay.textContent = `Tijd over: ${timeLeft} seconden`;
-    timer = setInterval(function() {
-        timeLeft--;
-        timerDisplay.textContent = `Tijd over: ${timeLeft} seconden`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            resultDisplay.textContent += ' Tijd is op!';
-            endGame();  // Beëindig het spel als de tijd op is
-        }
-    }, 1000);
+// Activeer de "Gooi dobbelsteen" knop nadat een keuze is gemaakt
+function enableDiceButton() {
+    if (playerChoice) {
+        diceButton.disabled = false; // Schakel "Gooi dobbelsteen" in
+        lowerButton.disabled = true; // Schakel "Lager" knop uit
+        higherButton.disabled = true; // Schakel "Hoger" knop uit
+    }
 }
 
 // Functie om de dobbelstenen te laten rollen
+diceButton.addEventListener('click', rollDice);
+
 function rollDice() {
     currentDiceSum = 0;
     computerDiceSum = 0;
@@ -114,16 +110,14 @@ function rollDice() {
             computerDiceTwo.classList.remove('roll');
         }, 500);
 
+        // Check of speler juist heeft gegokt na het gooien
+        checkGuess(playerChoice);
+
     }, 2000);
 }
 
 // Functie om te controleren of de speler juist heeft gegokt
 function checkGuess(guess) {
-    if (!currentDiceSum) {
-        console.log("Klik eerst op de Go-knop!");
-        return;
-    }
-
     const randomNumber = Math.floor(Math.random() * 12) + 1;
     console.log("Gok:", guess, "Totaal:", currentDiceSum);
 
@@ -148,6 +142,25 @@ function checkGuess(guess) {
     // Reset voor een nieuwe beurt
     currentDiceSum = 0;
     computerDiceSum = 0;
+    playerChoice = null; // Reset de keuze voor de volgende beurt
+    lowerButton.disabled = false;
+    higherButton.disabled = false;
+    diceButton.disabled = true; // Schakel "Gooi dobbelsteen" weer uit
+}
+
+// Functie om de timer te starten
+function startTimer() {
+    timerDisplay.textContent = `Tijd over: ${timeLeft} seconden`;
+    timer = setInterval(function() {
+        timeLeft--;
+        timerDisplay.textContent = `Tijd over: ${timeLeft} seconden`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            resultDisplay.textContent += ' Tijd is op!';
+            endGame();  // Beëindig het spel als de tijd op is
+        }
+    }, 1000);
 }
 
 // Functie om het spel te beëindigen en de winnaar te tonen
@@ -189,4 +202,5 @@ function resetGame() {
     timeLeft = 120;
     resultDisplay.textContent = '';
 }
+
 
