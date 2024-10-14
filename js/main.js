@@ -12,11 +12,11 @@ let timeLeft = 120;  // Timer van 2 minuten
 let playerChoice = null; // Houdt bij of speler 'hoger' of 'lager' kiest 
 
 // Knoppen en display-elementen 
-const goButton = document.getElementById("go-button"); 
-const lowerButton = document.getElementById("lower-button"); 
-const higherButton = document.getElementById("higher-button"); 
-const diceButton = document.getElementById("dice-button"); 
-const resultDisplay = document.getElementById("result-display"); 
+const goButton = document.querySelector("#go-button"); 
+const lowerButton = document.querySelector("#lower-button"); 
+const higherButton = document.querySelector("#higher-button"); 
+const diceButton = document.querySelector("#dice-button"); 
+const resultDisplay = document.querySelector("#result-display"); 
 const playerCreditsDisplay = document.querySelector(".player-credits"); 
 const computerCreditsDisplay = document.querySelector('.computer-credits'); 
 const timerDisplay = document.querySelector(".timer-display"); 
