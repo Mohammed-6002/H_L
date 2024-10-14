@@ -50,7 +50,7 @@ h1 {
     position: relative;
 }
 
-/* Stylish glowing separator line */
+/* Stylish glowing separator line between sections */
 .dice-container::before {
     content: '';
     position: absolute;
@@ -68,7 +68,20 @@ h1 {
 .section {
     flex: 1;
     text-align: center;
-    padding: 20px;
+    position: relative;
+}
+
+/* Line between dice values for each section */
+.section .dices::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(180deg, #ff7e5f, #feb47b);
+    box-shadow: 0 0 15px rgba(255, 126, 95, 0.6), 0 0 25px rgba(254, 180, 123, 0.6);
+    transform: translateX(-50%);
 }
 
 /* Dice styling */
@@ -76,6 +89,7 @@ h1 {
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    position: relative;
 }
 
 .dice {
@@ -127,26 +141,5 @@ button:hover {
 }
 
 button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+    background-color:
 }
-
-/* Responsive layout for mobile */
-@media (max-width: 768px) {
-    .dice-container, .controls {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .dice {
-        font-size: 60pt;
-    }
-
-    button {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-}
-
-
-
