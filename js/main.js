@@ -8,16 +8,16 @@ let computerCredits = 0;
 let currentDiceSum = 0;
 let computerDiceSum = 0;
 let timer;
-let timeLeft = 120;  // Timer van 2 minuten
+let timeLeft = 60;  // Timer van 2 minuten
 let playerChoice = null; // Houdt bij of speler 'hoger' of 'lager' kiest
 let computerChoice = null; // Houdt bij wat de keuze van de computer is
 
 // Knoppen en display-elementen
-const goButton = document.getElementById("go-button");
-const lowerButton = document.getElementById("lower-button");
-const higherButton = document.getElementById("higher-button");
-const diceButton = document.getElementById("dice-button");
-const resultDisplay = document.getElementById("result-display");
+const goButton = document.querySelector("#go-button");
+const lowerButton = document.querySelector("#lower-button");
+const higherButton = document.querySelector("#higher-button");
+const diceButton = document.querySelector("#dice-button");
+const resultDisplay = document.querySelector("#result-display");
 const playerCreditsDisplay = document.querySelector(".player-credits");
 const computerCreditsDisplay = document.querySelector('.computer-credits');
 const timerDisplay = document.querySelector(".timer-display");
@@ -98,12 +98,25 @@ function rollDice() {
             else playerDiceTwo.textContent = diceValue;
         }
         console.log("Speler Totaal:", currentDiceSum);
-    }, 500);
+    }, 100);
 
     // Computer maakt keuze voordat hij gooit
     computerChoice = computerMakesChoice();
 
-    // Computer gooit de dobbelstenen na 2 seconden
+    // Simuleer een klik op de dobbelsteenknop voor de computer
+    setTimeout(() => {
+        simulateDiceRollForComputer();
+    }, 1000);
+}
+
+// Functie om de computer de dobbelstenen te laten gooien
+function simulateDiceRollForComputer() {
+    computerDiceSum = 0;
+
+    // Voeg de 'roll' klasse toe voor animatie
+    computerDiceOne.classList.add('roll');
+    computerDiceTwo.classList.add('roll');
+
     setTimeout(() => {
         for (let i = 0; i < 2; i++) {
             const computerDiceValue = Math.floor(Math.random() * 6) + 1;
@@ -116,16 +129,13 @@ function rollDice() {
 
         // Verwijder de 'roll' klasse na de animatie
         setTimeout(() => {
-            playerDiceOne.classList.remove('roll');
-            playerDiceTwo.classList.remove('roll');
             computerDiceOne.classList.remove('roll');
             computerDiceTwo.classList.remove('roll');
-        }, 500);
+        }, 100);
 
         // Check of speler juist heeft gegokt na het gooien
         checkGuess(playerChoice, computerChoice);
-
-    }, 2000);
+    }, 1000);
 }
 
 // Functie om te controleren of de speler en computer juist hebben gegokt
@@ -222,6 +232,7 @@ function resetGame() {
     computerCredits = 0;
     currentDiceSum = 0;
     computerDiceSum = 0;
-    timeLeft = 120;
+    timeLeft = 60;
     resultDisplay.textContent = '';
 }
+

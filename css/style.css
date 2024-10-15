@@ -118,6 +118,7 @@ h4 {
     display: flex;
     justify-content: space-around;
     margin-bottom: 30px;
+    padding: 20px 0;  /* Voeg padding toe aan de boven- en onderkant */
 }
 
 /* Button styling with smooth animations */
@@ -132,6 +133,7 @@ button {
     font-weight: 600;
     box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
     transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 10px;  /* Voeg hier de marge toe tussen de knoppen */
 }
 
 button:hover {
@@ -141,5 +143,6 @@ button:hover {
 }
 
 button:disabled {
-    background-color:
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
 }
