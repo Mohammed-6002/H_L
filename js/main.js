@@ -9,7 +9,6 @@ let computerDiceSum = 0;
 let timer;
 let timeLeft = 60;  
 let playerChoice = null; 
-let computerChoice = null; 
 
 const goButton = document.querySelector("#go-button");
 const lowerButton = document.querySelector("#lower-button");
@@ -24,6 +23,9 @@ const playerDiceOne = document.querySelector('.player-dice-one');
 const playerDiceTwo = document.querySelector('.player-dice-two');
 const computerDiceOne = document.querySelector('.computer-dice-one');
 const computerDiceTwo = document.querySelector('.computer-dice-two');
+
+// Vooraf bepaalde waarden voor de dobbelstenen
+const diceValues = [1, 2, 3, 4, 5, 6];
 
 goButton.addEventListener('click', function() {
     console.log('Go button clicked');
@@ -58,11 +60,9 @@ function enableDiceButton() {
     }
 }
 
-function computerMakesChoice() {
-    const choices = ['higher', 'lower'];
-    const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-    console.log('Computer heeft gekozen:', randomChoice);
-    return randomChoice;
+// Functie om een waarde uit de dobbelsteen array te kiezen
+function rollDiceValue() {
+    return diceValues[Math.floor(Math.random() * diceValues.length)];
 }
 
 diceButton.addEventListener('click', rollDice);
@@ -71,27 +71,23 @@ function rollDice() {
     currentDiceSum = 0;
     computerDiceSum = 0;
 
+    // Rol de dobbelstenen voor de speler
     playerDiceOne.classList.add('roll');
     playerDiceTwo.classList.add('roll');
-    computerDiceOne.classList.add('roll');
-    computerDiceTwo.classList.add('roll');
 
     setTimeout(() => {
-        for (let i = 0; i < 2; i++) {
-            const diceValue = Math.floor(Math.random() * 6) + 1;
-            currentDiceSum += diceValue;
+        const playerRoll1 = rollDiceValue();
+        const playerRoll2 = rollDiceValue();
+        currentDiceSum = playerRoll1 + playerRoll2;
+        playerDiceOne.textContent = playerRoll1; // Toon waarde van de eerste dobbelsteen
+        playerDiceTwo.textContent = playerRoll2; // Toon waarde van de tweede dobbelsteen
 
-            if (i === 0) playerDiceOne.textContent = diceValue;
-            else playerDiceTwo.textContent = diceValue;
-        }
-        console.log("Speler Totaal:", currentDiceSum);
-    }, 100);
+        // Wacht 2 seconden voordat de computer zijn dobbelstenen gooit
+        setTimeout(() => {
+            simulateDiceRollForComputer();
+        }, 2000);
 
-    computerChoice = computerMakesChoice();
-
-    setTimeout(() => {
-        simulateDiceRollForComputer();
-    }, 1000);
+    }, 500);
 }
 
 function simulateDiceRollForComputer() {
@@ -101,55 +97,40 @@ function simulateDiceRollForComputer() {
     computerDiceTwo.classList.add('roll');
 
     setTimeout(() => {
-        for (let i = 0; i < 2; i++) {
-            const computerDiceValue = Math.floor(Math.random() * 6) + 1;
-            computerDiceSum += computerDiceValue;
+        const computerRoll1 = rollDiceValue();
+        const computerRoll2 = rollDiceValue();
+        computerDiceSum = computerRoll1 + computerRoll2;
+        computerDiceOne.textContent = computerRoll1; // Toon waarde van de eerste dobbelsteen
+        computerDiceTwo.textContent = computerRoll2; // Toon waarde van de tweede dobbelsteen
 
-            if (i === 0) computerDiceOne.textContent = computerDiceValue;
-            else computerDiceTwo.textContent = computerDiceValue;
-        }
-        console.log("Computer Totaal:", computerDiceSum);
-
-        setTimeout(() => {
-            computerDiceOne.classList.remove('roll');
-            computerDiceTwo.classList.remove('roll');
-        }, 100);
-
-        checkGuess(playerChoice, computerChoice);
-    }, 1000);
+        checkGuess(playerChoice);
+    }, 500); // Dit geeft tijd om de animatie te laten zien
 }
 
-function checkGuess(playerGuess, computerGuess) {
-    console.log("Speler Gok:", playerGuess, "Totaal:", currentDiceSum);
-    console.log("Computer Gok:", computerGuess, "Totaal:", computerDiceSum);
+function checkGuess(playerGuess) {
+    console.log("Speler Gok:", playerGuess, "Speler Totaal:", currentDiceSum, "Computer Totaal:", computerDiceSum);
 
-    // Check de gok van de speler
-    if (playerGuess === 'lower' && currentDiceSum < 6) {
-        playerScore++;
+    // Controleer de gok van de speler
+    if (currentDiceSum === computerDiceSum) {
+        resultDisplay.textContent = `Gelijkspel! Beide gooiden ${currentDiceSum}. Geen credits voor niemand.`;
+    } else if (playerGuess === 'lower' && currentDiceSum < computerDiceSum) {
         playerCredits++;
-        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum}`;
-    } else if (playerGuess === 'higher' && currentDiceSum > 6) {
-        playerScore++;
+        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum} (lager dan ${computerDiceSum})`;
+    } else if (playerGuess === 'higher' && currentDiceSum > computerDiceSum) {
         playerCredits++;
-        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum}`;
+        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum} (hoger dan ${computerDiceSum})`;
     } else {
-        computerScore++;
-        computerCredits++;
-        resultDisplay.textContent = `Je hebt verloren! Totaal: ${currentDiceSum}`;
-    }
-
-    // Check de gok van de computer
-    if (computerGuess === 'lower' && computerDiceSum < 6) {
-        computerScore++;
-        computerCredits++;
-    } else if (computerGuess === 'higher' && computerDiceSum > 6) {
-        computerScore++;
-        computerCredits++;
+        computerCredits++; // Computer krijgt een credit als de speler niet goed gokt
+        resultDisplay.textContent = `Je hebt verloren! Totaal: ${currentDiceSum} (was ${computerDiceSum})`;
     }
 
     playerCreditsDisplay.textContent = playerCredits;
     computerCreditsDisplay.textContent = computerCredits;
 
+    resetGameForNextRound();
+}
+
+function resetGameForNextRound() {
     currentDiceSum = 0;
     computerDiceSum = 0;
     playerChoice = null; 
@@ -206,6 +187,9 @@ function resetGame() {
     computerDiceSum = 0;
     timeLeft = 60;
     resultDisplay.textContent = '';
+    playerCreditsDisplay.textContent = playerCredits;
+    computerCreditsDisplay.textContent = computerCredits;
 }
+
 
 
