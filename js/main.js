@@ -44,7 +44,6 @@ lowerButton.addEventListener('click', function() {
     enableDiceButton(); 
 });
 
-
 higherButton.addEventListener('click', function() {
     console.log('Higher button clicked');
     playerChoice = 'higher'; 
@@ -119,29 +118,31 @@ function simulateDiceRollForComputer() {
         checkGuess(playerChoice, computerChoice);
     }, 1000);
 }
+
 function checkGuess(playerGuess, computerGuess) {
-    const randomNumber = Math.floor(Math.random() * 12) + 1;
     console.log("Speler Gok:", playerGuess, "Totaal:", currentDiceSum);
     console.log("Computer Gok:", computerGuess, "Totaal:", computerDiceSum);
 
-    if (playerGuess === 'lower' && randomNumber < currentDiceSum) {
+    // Check de gok van de speler
+    if (playerGuess === 'lower' && currentDiceSum < 6) {
         playerScore++;
         playerCredits++;
-        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${randomNumber}`;
-    } else if (playerGuess === 'higher' && randomNumber > currentDiceSum) {
+        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum}`;
+    } else if (playerGuess === 'higher' && currentDiceSum > 6) {
         playerScore++;
         playerCredits++;
-        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${randomNumber}`;
+        resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum}`;
     } else {
         computerScore++;
         computerCredits++;
-        resultDisplay.textContent = `Je hebt verloren! Totaal: ${randomNumber}`;
+        resultDisplay.textContent = `Je hebt verloren! Totaal: ${currentDiceSum}`;
     }
 
-    if (computerGuess === 'lower' && randomNumber < computerDiceSum) {
+    // Check de gok van de computer
+    if (computerGuess === 'lower' && computerDiceSum < 6) {
         computerScore++;
         computerCredits++;
-    } else if (computerGuess === 'higher' && randomNumber > computerDiceSum) {
+    } else if (computerGuess === 'higher' && computerDiceSum > 6) {
         computerScore++;
         computerCredits++;
     }
@@ -196,7 +197,6 @@ function showWinner() {
     }
 }
 
-
 function resetGame() {
     playerScore = 0;
     computerScore = 0;
@@ -207,4 +207,5 @@ function resetGame() {
     timeLeft = 60;
     resultDisplay.textContent = '';
 }
+
 
