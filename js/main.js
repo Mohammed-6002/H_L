@@ -24,9 +24,6 @@ const playerDiceTwo = document.querySelector('.player-dice-two');
 const computerDiceOne = document.querySelector('.computer-dice-one');
 const computerDiceTwo = document.querySelector('.computer-dice-two');
 
-// Vooraf bepaalde waarden voor de dobbelstenen
-const diceValues = [1, 2, 3, 4, 5, 6];
-
 goButton.addEventListener('click', function() {
     console.log('Go button clicked');
     goButton.remove();  
@@ -60,9 +57,9 @@ function enableDiceButton() {
     }
 }
 
-// Functie om een waarde uit de dobbelsteen array te kiezen
+// Functie om een waarde voor de dobbelsteen te kiezen met Math.random
 function rollDiceValue() {
-    return diceValues[Math.floor(Math.random() * diceValues.length)];
+    return Math.floor(Math.random() * 6) + 1; // Genereert een getal tussen 1 en 6
 }
 
 diceButton.addEventListener('click', rollDice);
@@ -190,6 +187,7 @@ function resetGame() {
     playerCreditsDisplay.textContent = playerCredits;
     computerCreditsDisplay.textContent = computerCredits;
 }
+
 
 
 
