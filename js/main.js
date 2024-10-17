@@ -85,7 +85,7 @@ function rollDice() {
         // Wacht 2 seconden voordat de computer zijn dobbelstenen gooit
         setTimeout(() => {
             simulateDiceRollForComputer();
-        }, 2000);
+        }, 500);
 
     }, 500);
 }
