@@ -7,7 +7,7 @@ let computerCredits = 0;
 let currentDiceSum = 0;
 let computerDiceSum = 0;
 let timer;
-let timeLeft = 60;  
+let timeLeft = 30;  
 let playerChoice = null; 
 
 const goButton = document.querySelector("#go-button");
@@ -155,7 +155,9 @@ function endGame() {
     higherButton.disabled = true;
     diceButton.disabled = true;
 
-    showWinner();
+    // Reset de weergave voordat je de winnaar toont
+    resultDisplay.textContent = ''; // Maak de resultaten leeg
+    showWinner(); // Toon de winnaar
 
     const restartButton = document.createElement('button');
     restartButton.textContent = 'Herstart het spel';
@@ -167,11 +169,11 @@ function endGame() {
 
 function showWinner() {
     if (playerCredits > computerCredits) {
-        resultDisplay.textContent += ' Je hebt gewonnen!';
+        resultDisplay.textContent = 'Je hebt gewonnen!';
     } else if (playerCredits < computerCredits) {
-        resultDisplay.textContent += ' De computer heeft gewonnen!';
+        resultDisplay.textContent = 'De computer heeft gewonnen!';
     } else {
-        resultDisplay.textContent += ' Het is gelijkspel!';
+        resultDisplay.textContent = 'Het is gelijkspel!';
     }
 }
 
@@ -182,11 +184,12 @@ function resetGame() {
     computerCredits = 0;
     currentDiceSum = 0;
     computerDiceSum = 0;
-    timeLeft = 60;
+    timeLeft = 30;
     resultDisplay.textContent = '';
     playerCreditsDisplay.textContent = playerCredits;
     computerCreditsDisplay.textContent = computerCredits;
 }
+
 
 
 

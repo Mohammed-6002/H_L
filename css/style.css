@@ -24,7 +24,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.timer, .winner {
+.timer {
     font-size: 26px;
     margin-bottom: 20px;
 }
@@ -67,4 +67,12 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.winner {
+    font-weight: bold;
+    display: none;
+    color: #00c6ff;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #333;
+}
 
