@@ -57,9 +57,8 @@ function enableDiceButton() {
     }
 }
 
-// Functie om een waarde voor de dobbelsteen te kiezen met Math.random
 function rollDiceValue() {
-    return Math.floor(Math.random() * 6) + 1; // Genereert een getal tussen 1 en 6
+    return Math.floor(Math.random() * 6) + 1; 
 }
 
 diceButton.addEventListener('click', rollDice);
@@ -68,7 +67,6 @@ function rollDice() {
     currentDiceSum = 0;
     computerDiceSum = 0;
 
-    // Rol de dobbelstenen voor de speler
     playerDiceOne.classList.add('roll');
     playerDiceTwo.classList.add('roll');
 
@@ -76,10 +74,9 @@ function rollDice() {
         const playerRoll1 = rollDiceValue();
         const playerRoll2 = rollDiceValue();
         currentDiceSum = playerRoll1 + playerRoll2;
-        playerDiceOne.textContent = playerRoll1; // Toon waarde van de eerste dobbelsteen
-        playerDiceTwo.textContent = playerRoll2; // Toon waarde van de tweede dobbelsteen
+        playerDiceOne.textContent = playerRoll1; 
+        playerDiceTwo.textContent = playerRoll2; 
 
-        // Wacht 2 seconden voordat de computer zijn dobbelstenen gooit
         setTimeout(() => {
             simulateDiceRollForComputer();
         }, 500);
@@ -97,17 +94,16 @@ function simulateDiceRollForComputer() {
         const computerRoll1 = rollDiceValue();
         const computerRoll2 = rollDiceValue();
         computerDiceSum = computerRoll1 + computerRoll2;
-        computerDiceOne.textContent = computerRoll1; // Toon waarde van de eerste dobbelsteen
-        computerDiceTwo.textContent = computerRoll2; // Toon waarde van de tweede dobbelsteen
+        computerDiceOne.textContent = computerRoll1; 
+        computerDiceTwo.textContent = computerRoll2; 
 
         checkGuess(playerChoice);
-    }, 500); // Dit geeft tijd om de animatie te laten zien
+    }, 500); 
 }
 
 function checkGuess(playerGuess) {
     console.log("Speler Gok:", playerGuess, "Speler Totaal:", currentDiceSum, "Computer Totaal:", computerDiceSum);
 
-    // Controleer de gok van de speler
     if (currentDiceSum === computerDiceSum) {
         resultDisplay.textContent = `Gelijkspel! Beide gooiden ${currentDiceSum}. Geen credits voor niemand.`;
     } else if (playerGuess === 'lower' && currentDiceSum < computerDiceSum) {
@@ -117,7 +113,7 @@ function checkGuess(playerGuess) {
         playerCredits++;
         resultDisplay.textContent = `Je hebt gewonnen! Totaal: ${currentDiceSum} (hoger dan ${computerDiceSum})`;
     } else {
-        computerCredits++; // Computer krijgt een credit als de speler niet goed gokt
+        computerCredits++; 
         resultDisplay.textContent = `Je hebt verloren! Totaal: ${currentDiceSum} (was ${computerDiceSum})`;
     }
 
@@ -155,9 +151,8 @@ function endGame() {
     higherButton.disabled = true;
     diceButton.disabled = true;
 
-    // Reset de weergave voordat je de winnaar toont
-    resultDisplay.textContent = ''; // Maak de resultaten leeg
-    showWinner(); // Toon de winnaar
+    resultDisplay.textContent = ''; 
+    showWinner(); 
 
     const restartButton = document.createElement('button');
     restartButton.textContent = 'Herstart het spel';
