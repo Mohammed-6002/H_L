@@ -1,7 +1,7 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #6a5acd, #00c6ff);
-    color: #fff;
+    font-family: Arial, sans-serif;
+    background:url('background.jpg');
+    background-size: cover;
     margin: 0;
     padding: 20px;
     display: flex;
@@ -9,70 +9,67 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+ 
 .container {
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 40px;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    background-color: transparent;
+    padding: 20px;
+    border: 2px solid white;
     text-align: center;
 }
-
+ 
 h1 {
-    font-size: 48px;
-    font-weight: 700;
+    color: white;
+    font-size: 36px;
     margin-bottom: 20px;
 }
-
-.timer {
-    font-size: 26px;
-    margin-bottom: 20px;
-}
-
+ 
 .dice-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 30px 0;
-}
-
-.dice {
-    font-size: 80pt;
-    color: #fff;
-}
-
-h4 {
-    font-size: 24px;
-    margin-top: 10px;
-}
-
-.controls {
+    color: white;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+}
+ 
+.section {
+    width: 45%;
+}
+ 
+.dice {
+    color: white;
+    font-size: 60px;
+    margin: 10px 0;
+}
+ 
+h4, .timer-display {
+    color: white;
+    margin-top: 10px;
+    font-size: 18px;
+}
+ 
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
     margin-top: 20px;
 }
-
+ 
 button {
-    padding: 15px 30px;
-    background: #f9c74f;
-    color: #333;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: 600;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0; 
 }
-
+ 
 button:disabled {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #ccc;
     cursor: not-allowed;
 }
 
-.winner {
-    font-weight: bold;
-    display: none;
-    color: #00c6ff;
-    margin-top: 20px;
-    text-align: center;
-    text-shadow: 1px 1px 2px #333;
+.message-box {
+    color: white;
 }
 
+#result-display {
+    color: white;
+}
